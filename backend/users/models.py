@@ -1,23 +1,39 @@
+from django.contrib.auth.models import AbstractUser
+from django.core.validators import RegexValidator
 from django.db import models
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
 
 
-class Ingredient(models.Model):
-    name = models.CharField(
-        verbose_name='Название ингридиента',
-        max_length=30
+class User(AbstractUser):
+    '''Класс пользователей.'''
+
+    username = models.CharField(
+        max_length=150,
+        verbose_name='Имя пользователя',
+        unique=True,
+        db_index=True,
+        validators=[RegexValidator(
+            regex=r'^[\w.@+-]+$',
+            message='Имя пользователя содержит недопустимый символ'
+        )]
     )
-    measurement_unit = models.CharField(
-        verbose_name='Единица измерения',
-        max_length=30
+    first_name = models.CharField(
+        max_length=150,
+        verbose_name='Имя'
+    )
+    last_name = models.CharField(
+        max_length=150,
+        verbose_name='Фамилия'
+    )
+    email = models.EmailField(
+        max_length=254,
+        verbose_name='Email',
+        unique=True
     )
 
     class Meta:
-        verbose_name = 'Ингридиент'
-        verbose_name_plural = 'Ингридиенты'
-        ordering = ['name']
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+        ordering = ('id',)
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.username}'
