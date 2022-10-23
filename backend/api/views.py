@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework import viewsets
 
 from backend.api.serializers import IngredientSerializer
 from backend.core.models import Ingredient, Recipe

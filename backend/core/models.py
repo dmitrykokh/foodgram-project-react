@@ -1,4 +1,43 @@
+from django.core import validators
+from django.contrib.auth.models import AbstractUser
+from django.core.validators import RegexValidator
 from django.db import models
+
+
+class User(AbstractUser):
+    '''Класс пользователей.'''
+
+    username = models.CharField(
+        max_length=150,
+        verbose_name='Имя пользователя',
+        unique=True,
+        db_index=True,
+        validators=[RegexValidator(
+            regex=r'^[\w.@+-]+$',
+            message='Имя пользователя содержит недопустимый символ'
+        )]
+    )
+    first_name = models.CharField(
+        max_length=150,
+        verbose_name='Имя'
+    )
+    last_name = models.CharField(
+        max_length=150,
+        verbose_name='Фамилия'
+    )
+    email = models.EmailField(
+        max_length=254,
+        verbose_name='Email',
+        unique=True
+    )
+
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+        ordering = ('id',)
+
+    def __str__(self):
+        return f'{self.username}'
 
 
 class Ingredient(models.Model):
@@ -41,15 +80,54 @@ class IngredientRecipe(models.Model):
     )
 
     class Meta:
-        pass
+        verbose_name = 'Ингридиент'
+        verbose_name_plural = 'Ингридиенты'
+        ordering = ('ingredient',)
 
     def __str__(self):
         return f'{self.ingredient}, {self.recipe}'
 
 
+class Tag(models.Model):
+    """Класс для тэгов"""
+
+    name = models.CharField(
+        max_length=256,
+        verbose_name='Наименование тэга'
+    )
+    color = models.CharField(
+        max_length=10,
+        verbose_name='Цвет тэга'
+    )
+    slug = models.SlugField(
+        unique=True,
+        verbose_name='Слаг тэга'
+    )
+
+    class Meta:
+        verbose_name = 'Тэг'
+        verbose_name_plural = 'Тэги'
+        ordering = ('-id',)
+
+    def __str__(self):
+        return f'{self.name}'
+
+
 class Recipe(models.Model):
     """Класс рецептов"""
 
+    tags = models.ManyToManyField(
+        Tag,
+        related_name='recipes',
+        verbose_name='Тэги',
+    )
+    author = models.ForeignKey(
+        User,
+        related_name='recipes',
+        verbose_name='Автор',
+        null=True,
+        on_delete=models.SET_NULL
+    )
     name = models.CharField(
         max_length=200,
         verbose_name='Название рецепта'
@@ -61,11 +139,58 @@ class Recipe(models.Model):
         related_name='recipes',
         verbose_name='Ингредиент'
     )
+    # image = models.ImageField(
+    #     verbose_name='Фото'
+    # )
+    # text = models.TextField(
+    #     verbose_name='Описание'
+    # )
+    # cooking_time = models.PositiveIntegerField(
+    #     verbose_name='время приготовления',
+    #     validators=[validators.MinValueValidator(
+    #         1, message='Минимальное время приготовления 1 минута'),
+    #     ]
+    # )
 
     class Meta:
         verbose_name = 'Рецепт'
         verbose_name_plural = 'Рецепты'
         ordering = ('name',)
+        constraints = [
+            models.UniqueConstraint(
+                fields=['name', 'author'],
+                name='unique_recipe'),
+        ]
 
     def __str__(self):
         return f'{self.name}'
+
+
+class Follow(models.Model):
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='following',
+        verbose_name='Автор',
+    )
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='follower',
+        verbose_name='Подписчик',
+    )
+
+    class Meta:
+        ordering = ['-id']
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'author'],
+                name='unique_follow',
+            )
+        ]
+
+    def __str__(self):
+        return f'{self.author } {self.user}'
+
