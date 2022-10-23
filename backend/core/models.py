@@ -54,7 +54,7 @@ class Ingredient(models.Model):
     class Meta:
         verbose_name = 'Ингридиент'
         verbose_name_plural = 'Ингридиенты'
-        ordering = ('name',)
+        ordering = ('id',)
 
     def __str__(self):
         return f'{self.name}'
@@ -82,7 +82,7 @@ class IngredientRecipe(models.Model):
     class Meta:
         verbose_name = 'Ингридиент'
         verbose_name_plural = 'Ингридиенты'
-        ordering = ('ingredient',)
+        ordering = ('id',)
 
     def __str__(self):
         return f'{self.ingredient}, {self.recipe}'
@@ -155,7 +155,7 @@ class Recipe(models.Model):
     class Meta:
         verbose_name = 'Рецепт'
         verbose_name_plural = 'Рецепты'
-        ordering = ('name',)
+        ordering = ('id',)
         constraints = [
             models.UniqueConstraint(
                 fields=['name', 'author'],
@@ -181,9 +181,9 @@ class Follow(models.Model):
     )
 
     class Meta:
-        ordering = ['-id']
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'
+        ordering = ('id',)
         constraints = [
             models.UniqueConstraint(
                 fields=['user', 'author'],
@@ -192,5 +192,60 @@ class Follow(models.Model):
         ]
 
     def __str__(self):
-        return f'{self.author } {self.user}'
+        return f'{self.author }'
 
+
+class Favorite(models.Model):
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='favorite',
+        verbose_name='Автор'
+    )
+    recipe = models.ForeignKey(
+        Recipe,
+        on_delete=models.CASCADE,
+        related_name='favorite',
+        verbose_name='Рецепт в избранном'
+    )
+
+    class Meta:
+        verbose_name = 'Избранный рецепт'
+        verbose_name_plural = 'Избранные рецепты'
+        ordering = ('id',)
+        constraints = [
+            models.UniqueConstraint(
+                fields=['author', 'recipe'],
+                name='unique_favorite'),
+        ]
+
+    def __str__(self):
+        return f'{self.author }'
+
+
+class ShoppingCart(models.Model):
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='cart',
+        verbose_name='Автор'
+    )
+    recipe = models.ForeignKey(
+        Recipe,
+        on_delete=models.CASCADE,
+        related_name='cart',
+        verbose_name='Рецепт'
+    )
+
+    class Meta:
+        verbose_name = 'Корзина'
+        verbose_name_plural = 'Корзины'
+        ordering = ('id',)
+        constraints = [
+            models.UniqueConstraint(
+                fields=['author', 'recipe'],
+                name='unique_cart_recipe'),
+        ]
+
+    def __str__(self):
+        return f'{self.author }'
