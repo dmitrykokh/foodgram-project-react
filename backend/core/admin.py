@@ -17,9 +17,9 @@ class RecipeAdmin(admin.ModelAdmin):
     list_display = (
         'name',
         'author',
-        # 'text',
-        # 'image',
-        # 'cooking_time',
+        'text',
+        'image',
+        'cooking_time',
         'count_favorites'
     )
 

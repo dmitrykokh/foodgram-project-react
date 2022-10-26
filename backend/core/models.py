@@ -139,18 +139,18 @@ class Recipe(models.Model):
         related_name='recipes',
         verbose_name='Ингредиент'
     )
-    # image = models.ImageField(
-    #     verbose_name='Фото'
-    # )
-    # text = models.TextField(
-    #     verbose_name='Описание'
-    # )
-    # cooking_time = models.PositiveIntegerField(
-    #     verbose_name='время приготовления',
-    #     validators=[validators.MinValueValidator(
-    #         1, message='Минимальное время приготовления 1 минута'),
-    #     ]
-    # )
+    image = models.ImageField(
+        verbose_name='Фото',
+    )
+    text = models.TextField(
+        verbose_name='Описание'
+    )
+    cooking_time = models.PositiveIntegerField(
+        verbose_name='время приготовления',
+        validators=[validators.MinValueValidator(
+            1, message='Минимальное время приготовления 1 минута'),
+        ]
+    )
 
     class Meta:
         verbose_name = 'Рецепт'
