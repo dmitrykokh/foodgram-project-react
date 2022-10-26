@@ -1,6 +1,6 @@
 # Foodgram - a social network for sharing recipes
 
-![Django-app workflow](https://github.com/dmitrykokh/foodgram-project-react/actions/workflows/yamdb_workflow.yml/badge.svg)
+![Django-app workflow](https://github.com/dmitrykokh/foodgram-project-react/actions/workflows/main.yml/badge.svg)
 
 ![Python](https://img.shields.io/badge/-Python-464646?style=flat&logo=Python&logoColor=56C0C0&color=008080)
 ![Django](https://img.shields.io/badge/-Django-464646?style=flat&logo=Django&logoColor=56C0C0&color=008080)
@@ -17,10 +17,10 @@ the appropriate buttons on the recipe.
 
 ## Technologies
 
-    Django==3.2.15
+    Django==2.2.16
+    djangorestframework==3.12.4
     django-filter==22.1
     django-templated-mail==1.1.1
-    djangorestframework==3.13.1
     djangorestframework-simplejwt==4.8.0
     djoser==2.1.0
     drf-extra-fields==3.4.0
@@ -38,7 +38,7 @@ the appropriate buttons on the recipe.
 
 [infra/example.env](./infra/example.env)
 
-To run CI, the DOCKER_USERNAME=guguruge variable must be present in the Github secrets environment
+To run CI, the DOCKER_USERNAME=example variable must be present in the Github secrets environment
 
 ## Project launching:
 
