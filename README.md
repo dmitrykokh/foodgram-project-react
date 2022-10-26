@@ -1,6 +1,12 @@
 # Foodgram - a social network for sharing recipes
 
-![Workflow](https://github.com/dmitrykokh/foodgram-project-react/actions/workflows/main.yml/badge.svg)
+![Django-app workflow](https://github.com/dmitrykokh/foodgram-project-react/actions/workflows/yamdb_workflow.yml/badge.svg)
+
+![Python](https://img.shields.io/badge/-Python-464646?style=flat&logo=Python&logoColor=56C0C0&color=008080)
+![Django](https://img.shields.io/badge/-Django-464646?style=flat&logo=Django&logoColor=56C0C0&color=008080)
+![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-464646?style=flat&logo=PostgreSQL&logoColor=56C0C0&color=008080)
+![Docker](https://img.shields.io/badge/-Docker-464646?style=flat&logo=Docker&logoColor=56C0C0&color=008080)
+![Yandex.Cloud](https://img.shields.io/badge/-Yandex.Cloud-464646?style=flat&logo=Yandex.Cloud&logoColor=56C0C0&color=008080)
 
 ## Description
 
