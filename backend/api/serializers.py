@@ -7,10 +7,9 @@ from rest_framework.permissions import SAFE_METHODS
 
 from backend.core.models import (Favorite, Follow, Ingredient,
                                  IngredientRecipe, Recipe,
-                                 ShoppingCart, Tag, User
-                                 )
+                                 ShoppingCart, Tag, User)
 from backend.foodgram.settings import (ALREADY_CREATED, FRIENDLY_FIRE,
-                                       HAVE_NOT_OBJECT_FOR_DELETE, ID_NOT_FOUND,
+                                       NO_OBJECT_FOR_DELETE, ID_NOT_FOUND,
                                        IS_A_POSITIVE_INT, NOT_NULL_PARAMETER)
 
 
@@ -260,7 +259,7 @@ class FollowCreateSerializer(FollowSerializer):
         else:
             if not subscription_exists:
                 raise ValidationError(
-                    {'errors': HAVE_NOT_OBJECT_FOR_DELETE.format(
+                    {'errors': NO_OBJECT_FOR_DELETE.format(
                         name='Подписка')
                      }
                 )
@@ -310,7 +309,7 @@ class ShoppingCartSerializer(serializers.ModelSerializer):
                     recipe=recipe
             ).exists():
                 raise ValidationError(
-                    {'errors': HAVE_NOT_OBJECT_FOR_DELETE.format(name='Рецепт')
+                    {'errors': NO_OBJECT_FOR_DELETE.format(name='Рецепт')
                      }
                 )
         return obj
