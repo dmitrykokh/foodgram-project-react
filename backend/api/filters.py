@@ -1,10 +1,11 @@
 import django_filters
+
 from backend.core.models import Ingredient, Recipe, Tag
 
 FILTER_CHOICES = (
     (1, True),
     (0, False)
-)
+    )
 FLAG_ON = '1'
 
 

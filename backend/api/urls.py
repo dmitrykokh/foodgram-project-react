@@ -2,8 +2,7 @@ from django.urls import include, path
 from rest_framework import routers
 
 from backend.api.views import (DjoserUserViewSet, IngredientViewSet,
-                               RecipeViewSet, TagViewSet
-                               )
+                               RecipeViewSet, TagViewSet)
 
 router = routers.DefaultRouter()
 
@@ -15,5 +14,5 @@ router.register('ingredients', IngredientViewSet, basename='ingredient-list')
 urlpatterns = [
     path('', include(router.urls)),
     path('', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken'))
+    path('auth/', include('djoser.urls.authtoken')),
     ]
