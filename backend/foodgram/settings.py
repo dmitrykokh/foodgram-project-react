@@ -42,7 +42,7 @@ ROOT_URLCONF = 'foodgram.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['static'],  #question
+        'DIRS': ['static'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -97,7 +97,7 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')  #question
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -121,7 +121,7 @@ COOKING_TIME_LIMIT = 'Введите время приготовления от 
 IS_A_POSITIVE_INT = 'Параметр {name} должен быть положительной цифрой.'
 NO_OBJECT_FOR_DELETE = '{name} уже отменен(а)'
 DELETE_SUCCESS = '{name} успешно отменен(а)'
-FRIENDLY_FIRE = 'Нельзя подписываться на самого себя'
+SELF_FOLLOW = 'Нельзя подписываться на самого себя'
 UNIQUE_TOGETHER_EXCEPTION = 'Получено два одинаковых объекта {name}'
 PASSWORD_CHANGED_SUCCESS = 'Пароль успешно изменен'
 NOT_NULL_PARAMETER = 'Не указан ни один {name}'

@@ -1,23 +1,6 @@
-from backend.api.filters import NameFilter, RecipeFilter
-from backend.api.paginations import LargeResultsSetPagination
-from backend.api.permissions import AuthorOrReadOnly
-from backend.api.serializers import (DjoserUserCreateSerializer, DjoserUserSerializer,
-                                     IngredientNameSerializer, RecipeCreateSerializer,
-                                     RecipeReadSerializer, ShoppingCartSerializer,
-                                     FollowCreateSerializer,
-                                     FollowRecipeSerializer,
-                                     FollowSerializer,
-                                     FollowGetSerializer, TagSerializer
-                                     )
-from backend.api.utils import shopping_cart_data_creator
-from backend.foodgram.settings import DELETE_SUCCESS
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
 from djoser.views import UserViewSet
-from backend.core.models import (Favorite, Ingredient,
-                                 Recipe, ShoppingCart,
-                                 Follow, Tag, User
-                                 )
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.generics import get_object_or_404
@@ -25,6 +8,25 @@ from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
 from rest_framework.permissions import SAFE_METHODS, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
+
+from api.filters import NameFilter, RecipeFilter
+from api.paginations import LargeResultsSetPagination
+from api.permissions import AuthorOrReadOnly
+from api.serializers import (DjoserUserCreateSerializer,
+                             DjoserUserSerializer,
+                             FollowCreateSerializer,
+                             FollowRecipeSerializer,
+                             FollowSerializer,
+                             FollowGetSerializer,
+                             IngredientNameSerializer,
+                             RecipeCreateSerializer,
+                             RecipeReadSerializer,
+                             ShoppingCartSerializer,
+                             TagSerializer)
+from api.utils import shopping_cart_data_creator
+from core.models import (Favorite, Ingredient, Recipe,
+                         ShoppingCart, Follow, Tag, User)
+from foodgram.settings import DELETE_SUCCESS
 
 
 class DjoserUserViewSet(UserViewSet):
@@ -39,7 +41,7 @@ class DjoserUserViewSet(UserViewSet):
             id=self.request.user.pk
         )
         return [
-            sub.user for sub in user.subscription_from_author.all()
+            sub.user for sub in user.following.all()
         ]
 
     def get_serializer_class(self):
@@ -225,4 +227,4 @@ class IngredientViewSet(viewsets.ModelViewSet):
     serializer_class = IngredientNameSerializer
     filter_backends = (DjangoFilterBackend,)
     filterset_class = NameFilter
-    filterset_fields = ('name', )
+    filterset_fields = ('name',)

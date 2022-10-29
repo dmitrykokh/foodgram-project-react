@@ -125,8 +125,8 @@ class Recipe(models.Model):
         User,
         related_name='recipes',
         verbose_name='Автор',
-        null=True,
-        on_delete=models.SET_NULL
+        blank=True,
+        on_delete=models.CASCADE
     )
     name = models.CharField(
         max_length=200,
@@ -137,7 +137,7 @@ class Recipe(models.Model):
         Ingredient,
         through='IngredientRecipe',
         related_name='recipes',
-        verbose_name='Ингредиент'
+        verbose_name='Ингредиенты'
     )
     image = models.ImageField(
         verbose_name='Фото',

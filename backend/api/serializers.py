@@ -4,13 +4,12 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import SAFE_METHODS
-
-from backend.core.models import (Favorite, Follow, Ingredient,
-                                 IngredientRecipe, Recipe,
-                                 ShoppingCart, Tag, User)
-from backend.foodgram.settings import (ALREADY_CREATED, FRIENDLY_FIRE,
-                                       NO_OBJECT_FOR_DELETE, ID_NOT_FOUND,
-                                       IS_A_POSITIVE_INT, NOT_NULL_PARAMETER)
+from core.models import (Favorite, Follow, Ingredient,
+                         IngredientRecipe, Recipe,
+                         ShoppingCart, Tag, User)
+from foodgram.settings import (ALREADY_CREATED, ID_NOT_FOUND,
+                               IS_A_POSITIVE_INT, NOT_NULL_PARAMETER,
+                               NO_OBJECT_FOR_DELETE, SELF_FOLLOW)
 
 
 class DjoserUserCreateSerializer(UserSerializer):
@@ -246,7 +245,7 @@ class FollowCreateSerializer(FollowSerializer):
         user = obj.get('user')
         request = self.context.get('request')
         if author == user:
-            raise ValidationError(FRIENDLY_FIRE)
+            raise ValidationError(SELF_FOLLOW)
         subscription_exists = Follow.objects.filter(
             author=author,
             user=user
@@ -260,8 +259,7 @@ class FollowCreateSerializer(FollowSerializer):
             if not subscription_exists:
                 raise ValidationError(
                     {'errors': NO_OBJECT_FOR_DELETE.format(
-                        name='Подписка')
-                     }
+                        name='Подписка')}
                 )
         return obj
 
