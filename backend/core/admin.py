@@ -2,8 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .models import (Favorite, Follow, Ingredient, IngredientRecipe,
-                     Recipe, ShoppingCart, Tag, User
-                     )
+                     Recipe, ShoppingCart, Tag, User)
 
 
 class CustomUserAdmin(UserAdmin):

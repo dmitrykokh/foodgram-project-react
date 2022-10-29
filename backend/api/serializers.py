@@ -1,16 +1,17 @@
-from api_foodgram.settings import (ALREADY_CREATED, FRIENDLY_FIRE,
-                                   HAVE_NOT_OBJECT_FOR_DELETE, ID_NOT_FOUND,
-                                   IS_A_POSITIVE_INT, NOT_NULL_PARAMETER)
 from djoser.serializers import UserSerializer
 from drf_extra_fields.fields import Base64ImageField
-from backend.core.models import (Favorite, Follow, Ingredient,
-                                 IngredientRecipe, Recipe,
-                                 ShoppingCart, Tag, User
-                                 )
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import SAFE_METHODS
+
+from backend.core.models import (Favorite, Follow, Ingredient,
+                                 IngredientRecipe, Recipe,
+                                 ShoppingCart, Tag, User
+                                 )
+from backend.foodgram.settings import (ALREADY_CREATED, FRIENDLY_FIRE,
+                                       HAVE_NOT_OBJECT_FOR_DELETE, ID_NOT_FOUND,
+                                       IS_A_POSITIVE_INT, NOT_NULL_PARAMETER)
 
 
 class DjoserUserCreateSerializer(UserSerializer):
