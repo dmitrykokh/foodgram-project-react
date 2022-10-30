@@ -1,16 +1,17 @@
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
 
 load_dotenv()
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = '7(&uu^0ckyop^k)&h$!d_*o*f$oq7+b5axv!q__hc6vu*ves6z'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', 'db', '127.0.1.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -56,7 +57,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'foodgram.wsgi.application'
-
 
 DATABASES = {
     'default': {
