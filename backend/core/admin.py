@@ -1,44 +1,93 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 
-from .models import (Favorite, Follow, Ingredient, IngredientRecipe, Recipe,
-                     ShoppingCart, Tag, User)
-
-
-class CustomUserAdmin(UserAdmin):
-    search_fields = ('username', 'email', 'first_name')
-    list_filter = ('username', 'email', 'first_name')
+from .models import (Favorite, Ingredient, IngredientInRecipe,
+                     Recipe, Tag, ShoppingCart)
 
 
-class RecipeAdmin(admin.ModelAdmin):
-    search_fields = ('name', 'author', 'tags', 'text')
-    list_filter = ('name', 'author', 'tags')
+class BaseAdminSettings(admin.ModelAdmin):
+    """Базовая кастомизация админ панели."""
+    empty_value_display = '-пусто-'
+    list_filter = ('author', 'name', 'tags')
+
+
+class TagAdmin(BaseAdminSettings):
+    """
+    Кастомизация админ панели (управление тегами).
+    """
+    list_display = (
+        'name',
+        'color',
+        'slug'
+    )
+    list_display_links = ('name',)
+    search_fields = ('name',)
+    list_filter = ('name',)
+
+
+class IngredientAdmin(BaseAdminSettings):
+    """
+    Кастомизация админ панели (управление ингредиентами).
+    """
+    list_display = (
+        'name',
+        'measurement_unit'
+    )
+    list_filter = ('name',)
+
+
+class RecipeAdmin(BaseAdminSettings):
+    """
+    Кастомизация админ панели (управление рецептами).
+    """
     list_display = (
         'name',
         'author',
-        'text',
-        'image',
-        'cooking_time',
-        'count_favorites'
+        'added_in_favorites'
     )
+    list_display_links = ('name',)
+    search_fields = ('name',)
+    list_filter = ('author', 'name', 'tags')
+    readonly_fields = ('added_in_favorites',)
+    filter_horizontal = ('tags',)
 
-    def count_favorites(self, obj):
-        return obj.favorites.count()
+    def added_in_favorites(self, obj):
+        return obj.favorites.all().count()
 
-    count_favorites.description = 'Число добавлений в избранное'
-
-
-class IngredientAdmin(admin.ModelAdmin):
-    search_fields = ('ingredient_name', )
-    list_filter = ('ingredient_name', )
+    added_in_favorites.short_description = 'Количество добавлений в избранное'
 
 
-admin.site.empty_value_display = 'значение не задано'
-admin.site.register(Tag)
-admin.site.register(IngredientRecipe)
-admin.site.register(Ingredient)
+class IngredientInRecipeAdmin(admin.ModelAdmin):
+    """
+    Кастомизация админ панели (управление ингридиентами в рецептах).
+    """
+    list_display = (
+        'ingredient',
+        'amount',
+    )
+    list_filter = ('ingredient',)
+
+
+class FavoriteAdmin(admin.ModelAdmin):
+    """
+    Кастомизация админ панели (управление избранными рецептами).
+    """
+    list_display = ('user', 'recipe')
+    list_filter = ('user', 'recipe')
+    search_fields = ('user', 'recipe')
+
+
+class ShoppingCartAdmin(admin.ModelAdmin):
+    """
+    Кастомизация админ панели (управление избранными рецептами).
+    """
+    list_display = ('recipe', 'user')
+    list_filter = ('recipe', 'user')
+    search_fields = ('user',)
+
+
+admin.site.register(Tag, TagAdmin)
+admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(Recipe, RecipeAdmin)
-admin.site.register(Favorite)
-admin.site.register(ShoppingCart)
-admin.site.register(Follow)
-admin.site.register(User, CustomUserAdmin)
+admin.site.register(IngredientInRecipe, IngredientInRecipeAdmin)
+admin.site.register(Favorite, FavoriteAdmin)
+admin.site.register(ShoppingCart, ShoppingCartAdmin)
