@@ -10,7 +10,7 @@ SECRET_KEY = '7(&uu^0ckyop^k)&h$!d_*o*f$oq7+b5axv!q__hc6vu*ves6z'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', '158.160.16.77']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -68,6 +68,13 @@ WSGI_APPLICATION = 'foodgram.wsgi.application'
 #         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
 #         'HOST': os.getenv('DB_HOST'),
 #         'PORT': os.getenv('DB_PORT'),
+#     }
+# }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
 
