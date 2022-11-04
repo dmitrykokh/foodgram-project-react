@@ -46,7 +46,7 @@ chmod +x /usr/local/bin/docker-compose
 
 - Скопируйте файлы docker-compose.yml и nginx.conf из директории ../infra/ на удаленный сервер:
 ```sh
-scp docker-compose.yml <username>@<host>:/home/<username>/docker-compose.yaml
+scp docker-compose.yml <username>@<host>:/home/<username>/docker-compose.yml
 scp nginx.conf <username>@<host>:/home/<username>/nginx.conf
 ```
 - Создайте переменные окружения (указаны в файле ../infra/env.example) и добавьте их в Secrets GitHub Actions
@@ -430,7 +430,7 @@ POST /api/recipes/
 
 ***
 
-Проект развернут по IP [51.250.111.254](http://51.250.111.254/)
+Проект развернут по IP [51.250.108.213](http://51.250.108.213/)
 
 Доступ в админ-панель:
 
