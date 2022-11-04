@@ -2,17 +2,17 @@ version: '3.3'
 services:
 
   db:
-    image: postgres:14.4-alpine
+    image: postgres:13.0-alpine
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
-    restart: always
     volumes:
       - postgres_data /var/lib/postgresql/data/
     env_file:
       - ./.env
+    restart: always
 
   backend:
-    image: mrdnk88/foodgram_backend:latest
+    image: mrdnk88/foodgram-backend:latest
     restart: always
     volumes:
       - static_value:/app/static/
@@ -23,7 +23,7 @@ services:
       - ./.env
 
   frontend:
-    image: mrdnk88/foodgram_frontend:latest
+    image: mrdnk88/foodgram-frontend:latest
     volumes:
       - ../frontend/:/app/result_build/
 
