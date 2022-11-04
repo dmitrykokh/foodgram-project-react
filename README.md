@@ -435,7 +435,7 @@ POST /api/recipes/
 Доступ в админ-панель:
 
 ```sh
-http://ip/admin
+http://51.250.108.213/admin
 login: admin
 pass: admin
 ```
