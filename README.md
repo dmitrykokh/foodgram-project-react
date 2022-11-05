@@ -436,7 +436,7 @@ POST /api/recipes/
 
 ```sh
 http://51.250.108.213/admin
-login: admin
+login: yandex@yandex.ru
 pass: admin
 ```
 
