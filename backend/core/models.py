@@ -62,7 +62,8 @@ class IngredientInRecipe(models.Model):
         related_name='ingredient_list',
         verbose_name='Ингредиенты в рецепте',
     )
-    amount = models.IntegerField(
+    amount = models.CharField(
+        max_length=10,
         default=1,
         validators=[
             MinValueValidator(1, 'Минимальное значение - 1')

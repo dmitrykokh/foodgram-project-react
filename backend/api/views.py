@@ -10,14 +10,14 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 
+from api.filters import IngredientFilter, RecipeFilter
+from api.pagination import CustomPagination
+from api.permissions import IsAdminOrReadOnly, IsAdminAuthorOrReadOnly
+from api.serializers import (IngredientSerializer, RecipeReadSerializer,
+                             RecipeShortSerializer, RecipeWriteSerializer,
+                             TagSerializer)
 from core.models import (Favorite, Ingredient, IngredientInRecipe, Recipe,
                          ShoppingCart, Tag)
-from .filters import IngredientFilter, RecipeFilter
-from .pagination import CustomPagination
-from .permissions import IsAdminOrReadOnly, IsAdminAuthorOrReadOnly
-from .serializers import (IngredientSerializer, RecipeReadSerializer,
-                          RecipeShortSerializer, RecipeWriteSerializer,
-                          TagSerializer)
 
 
 class TagViewSet(ReadOnlyModelViewSet):
