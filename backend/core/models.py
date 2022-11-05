@@ -62,8 +62,7 @@ class IngredientInRecipe(models.Model):
         related_name='ingredient_list',
         verbose_name='Ингредиенты в рецепте',
     )
-    amount = models.CharField(
-        max_length=10,
+    amount = models.PositiveSmallIntegerField(
         default=1,
         validators=[
             MinValueValidator(1, 'Минимальное значение - 1')
@@ -86,9 +85,7 @@ class IngredientInRecipe(models.Model):
 
 
 class Recipe(models.Model):
-    """
-    Модель рецепта.
-    """
+    """Модель рецепта."""
     author = models.ForeignKey(
         User,
         related_name='recipes',

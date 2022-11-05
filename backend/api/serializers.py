@@ -111,12 +111,10 @@ class IngredientInRecipeWriteSerializer(ModelSerializer):
         fields = ('id', 'amount', 'name', 'measurement_unit')
 
     def get_measurement_unit(self, ingredient):
-        measurement_unit = ingredient.ingredient.measurement_unit
-        return measurement_unit
+        return ingredient.ingredient.measurement_unit
 
     def get_name(self, ingredient):
-        name = ingredient.ingredient.name
-        return name
+        return ingredient.ingredient.name
 
 
 class IngredientInRecipeSerializer(ModelSerializer):
@@ -239,7 +237,6 @@ class RecipeWriteSerializer(ModelSerializer):
     def update(self, instance, validated_data):
         tags = validated_data.pop('tags')
         ingredients = validated_data.pop('ingredients')
-        # instance = super().update(instance, validated_data)
         instance.tags.clear()
         instance.tags.set(tags)
         instance.ingredients.clear()
