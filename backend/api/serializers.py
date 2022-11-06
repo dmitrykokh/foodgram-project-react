@@ -7,7 +7,8 @@ from rest_framework.fields import IntegerField, SerializerMethodField
 from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import ModelSerializer, ReadOnlyField
 
-from core.models import (Ingredient, IngredientInRecipe, Recipe, Tag)
+from core.models import (Favorite, Ingredient, IngredientInRecipe,
+                         Recipe, ShoppingCart, Tag)
 from users.models import Subscribe, User
 
 
@@ -56,11 +57,10 @@ class CustomUserSerializer(UserSerializer):
         )
 
     def get_is_subscribed(self, author):
-        user = self.context.get('request').user
-        if user.is_anonymous:
-            return False
-        return Subscribe.objects.filter(user=user, author=author).exists()
-
+        return Subscribe.objects.filter(
+            user=author.id,
+            author=self.context.get('request').user.id
+        ).exists()
 
 class SubscribeSerializer(CustomUserSerializer):
     recipes_count = SerializerMethodField()
@@ -152,16 +152,16 @@ class RecipeReadSerializer(ModelSerializer):
         )
 
     def get_is_favorited(self, recipe):
-        user = self.context.get('request').user
-        if user.is_anonymous:
-            return False
-        return user.favorites.filter(recipe=recipe).exists()
+        return Favorite.objects.filter(
+            author=self.context.get('request').user.id,
+            recipe=recipe.id
+        ).exists()
 
     def get_is_in_shopping_cart(self, recipe):
-        user = self.context.get('request').user
-        if user.is_anonymous:
-            return False
-        return user.shopping_cart.filter(recipe=recipe).exists()
+        return ShoppingCart.objects.filter(
+            author=self.context.get('request').user.id,
+            recipe=recipe.id
+        ).exists()
 
 
 class RecipeWriteSerializer(ModelSerializer):
