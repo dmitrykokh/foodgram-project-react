@@ -62,6 +62,7 @@ class CustomUserSerializer(UserSerializer):
             author=self.context.get('request').user.id
         ).exists()
 
+
 class SubscribeSerializer(CustomUserSerializer):
     recipes_count = SerializerMethodField()
     recipes = SerializerMethodField()
