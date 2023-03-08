@@ -109,11 +109,6 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            sudo docker-compose stop
-            sudo docker-compose rm backend
-            sudo docker-compose pull backend
-            sudo docker-compose rm frontend
-            sudo docker-compose pull frontend
             sudo rm -f .env
             sudo touch .env
             sudo chmod 666 .env
@@ -126,7 +121,12 @@ jobs:
             echo DB_HOST=${{ secrets.DB_HOST }} >> .env
             echo DB_PORT=${{ secrets.DB_PORT }} >> .env
             echo DOCKER_USERNAME='${{ secrets.DOCKER_USERNAME }}' >> .env
-
+            
+            sudo docker-compose stop
+            sudo docker-compose rm backend
+            sudo docker-compose pull backend
+            sudo docker-compose rm frontend
+            sudo docker-compose pull frontend
             sudo docker-compose up -d --build
 
   send_message:
