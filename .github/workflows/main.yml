@@ -41,7 +41,7 @@ jobs:
       needs: tests
       steps:
         - name: Check out the repo
-          uses: actions/checkout@v3
+          uses: actions/checkout@v2
         - name: Set up Docker Buildx
           uses: docker/setup-buildx-action@v1
         - name: Login to Docker
@@ -50,7 +50,7 @@ jobs:
             username: ${{ secrets.DOCKER_USERNAME }}
             password: ${{ secrets.DOCKER_PASSWORD }}
         - name: Push to Docker Hub
-          uses: docker/build-push-action@v3
+          uses: docker/build-push-action@v2
           with:
             context: ./backend
             push: true
@@ -71,7 +71,7 @@ jobs:
     needs: tests
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Login to Docker
@@ -109,6 +109,11 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            sudo docker-compose stop
+            sudo docker container rm $(sudo docker container ps -aq)
+            sudo docker image rm $(sudo docker image ls -aq)
+            sudo docker container prune -f
+            sudo docker image prune -f
             sudo rm -f .env
             sudo touch .env
             sudo chmod 666 .env
@@ -121,13 +126,8 @@ jobs:
             echo DB_HOST=${{ secrets.DB_HOST }} >> .env
             echo DB_PORT=${{ secrets.DB_PORT }} >> .env
             echo DOCKER_USERNAME='${{ secrets.DOCKER_USERNAME }}' >> .env
-            
-            sudo docker-compose stop
-            sudo docker-compose rm backend
-            sudo docker-compose pull backend
-            sudo docker-compose rm frontend
-            sudo docker-compose pull frontend
-            sudo docker compose up -d --build
+
+            sudo docker-compose up -d
 
   send_message:
     name: Send Telegram message
