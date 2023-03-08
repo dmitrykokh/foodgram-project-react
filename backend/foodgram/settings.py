@@ -10,8 +10,14 @@ SECRET_KEY = os.getenv('SECRET_KEY', default='something')
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
 # ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default='localhost')
+ALLOWED_HOSTS = [
+    '158.160.29.232',
+    'localhost',
+    '127.0.0.1',
+    '[::1]',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -70,18 +76,6 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT')
     }
 }
-# DATABASES = {
-#
-#     'default': {
-#
-#         'ENGINE': 'django.db.backends.sqlite3',
-#
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#
-#     }
-#
-# }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
