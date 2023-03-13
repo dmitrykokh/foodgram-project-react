@@ -28,8 +28,9 @@ $ git clone https://github.com/dmitrykokh/foodgram-project-react.git
 
 - Выполните вход на удаленный сервер
 
-- Установите DOCKER на сервер:
+- Подготовьте и установите DOCKER на сервер:
 ```sh
+apt update
 apt install docker.io 
 ```
 
@@ -62,36 +63,36 @@ python -m pip install --upgrade pip
 - Запустите приложение в контейнерах:
 
 ```sh
-docker-compose up -d --build
+sudo docker-compose up -d --build
 ```
 
 - Выполните миграции:
 
 ```sh
-docker-compose exec backend python manage.py migrate
+sudo docker-compose exec backend python manage.py migrate
 ```
 
 - Создайте суперпользователя:
 
 ```sh
-docker-compose exec backend python manage.py createsuperuser
+sudo docker-compose exec backend python manage.py createsuperuser
 ```
 
 - Выполните команду для сбора статики:
 
 ```sh
-docker-compose exec backend python manage.py collectstatic --no-input
+sudo docker-compose exec backend python manage.py collectstatic --no-input
 ```
 
 - Команда для заполнения тестовыми данными:
 ```sh
-docker-compose exec backend python manage.py load_ingredients
+sudo docker-compose exec backend python manage.py load_ingredients
 ```
 
 - Команда для остановки приложения в контейнерах:
 
 ```sh
-docker-compose down -v
+sudo docker-compose down -v
 ```
 
 ### Для запуска на локальной машине:
