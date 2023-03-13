@@ -135,3 +135,10 @@ DJOSER = {
     },
     'HIDE_USERS': False,
 }
+
+CORS_ALLOWED_ORIGINS = [
+    'http://158.160.29.131',
+    'http://localhost',
+    'http://127.0.0.1',
+    'http://[::1]'
+]
