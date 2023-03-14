@@ -30,14 +30,14 @@ $ git clone https://github.com/dmitrykokh/foodgram-project-react.git
 
 - Подготовьте и установите DOCKER на сервер:
 ```sh
-apt update
-apt install docker.io 
+sudo apt update
+sudo apt install docker.io 
 ```
 
 - Установитe docker-compose на сервер:
 ```sh
-curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 ```
 
 - Отредактируйте конфигурацию сервера NGNIX:
@@ -45,10 +45,12 @@ chmod +x /usr/local/bin/docker-compose
 Локально измените файл ..infra/nginx.conf - замените данные в строке server_name на IP-адрес удаленного сервера
 ```
 
-- Скопируйте файлы docker-compose.yml и nginx.conf из директории ../infra/ на удаленный сервер:
+- Скопируйте файлы docker-compose.yml и nginx.conf из директории ../infra/, а также папку docs из головной директории на удаленный сервер:
 ```sh
-scp docker-compose.yml <username>@<host>:/home/<username>/docker-compose.yml
-scp nginx.conf <username>@<host>:/home/<username>/nginx.conf
+sudo scp docker-compose.yml <username>@<host>:/home/<username>/docker-compose.yml
+sudo scp nginx.conf <username>@<host>:/home/<username>/nginx.conf
+sudo scp .env <username>@<host>:/home/<username>/.env
+scp -r docs <username>@<host>:/home/<username>/docs
 ```
 - Создайте переменные окружения (указаны в файле ../infra/env.example) и добавьте их в Secrets GitHub Actions
 
@@ -431,12 +433,12 @@ POST /api/recipes/
 
 ***
 
-Проект развернут по IP [84.252.139.163](http://84.252.139.163/)
+Проект развернут по IP [51.250.19.172](http://51.250.19.172/)
 
 Доступ в админ-панель:
 
 ```sh
-http://84.252.139.163/admin
+http://51.250.19.172/admin
 login: yandex@yandex.ru
 pass: yandex
 ```

@@ -10,14 +10,14 @@ SECRET_KEY = os.getenv('SECRET_KEY', default='something')
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
 # ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default='localhost')
-# ALLOWED_HOSTS = [
-#     '158.160.29.131',
-#     'localhost',
-#     '127.0.0.1',
-#     '[::1]',
-# ]
+ALLOWED_HOSTS = [
+    '51.250.19.172',
+    'localhost',
+    '127.0.0.1',
+    '[::1]',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -137,7 +137,7 @@ DJOSER = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    'http://158.160.29.131',
+    'http://51.250.19.172',
     'http://localhost',
     'http://127.0.0.1',
     'http://[::1]'
