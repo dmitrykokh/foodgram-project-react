@@ -58,10 +58,9 @@ class CustomUserSerializer(UserSerializer):
 
     def get_is_subscribed(self, author):
         user = self.context.get('request').user
-        return (
-            user.is_authenticated
-            and Subscribe.objects.filter(user=user, author=author).exists()
-        )
+        if user.is_anonymous:
+            return False
+        return Subscribe.objects.filter(user=user, author=author).exists()
 
 
 class SubscribeSerializer(CustomUserSerializer):
@@ -135,8 +134,8 @@ class RecipeReadSerializer(ModelSerializer):
     author = CustomUserSerializer(read_only=True)
     ingredients = IngredientInRecipeSerializer(many=True)
     image = Base64ImageField()
-    is_favorited = SerializerMethodField()
-    is_in_shopping_cart = SerializerMethodField()
+    is_favorited = SerializerMethodField(read_only=True)
+    is_in_shopping_cart = SerializerMethodField(read_only=True)
 
     class Meta:
         model = Recipe
@@ -155,17 +154,15 @@ class RecipeReadSerializer(ModelSerializer):
 
     def get_is_favorited(self, recipe):
         user = self.context.get('request').user
-        return (
-            user.is_authenticated
-            and recipe.shopping_cart.filter(user=user).exists()
-        )
+        if user.is_anonymous:
+            return False
+        return user.favorites.filter(recipe=recipe).exists()
 
     def get_is_in_shopping_cart(self, recipe):
         user = self.context.get('request').user
-        return (
-            user.is_authenticated
-            and recipe.shopping_cart.filter(user=user).exists()
-        )
+        if user.is_anonymous:
+            return False
+        return user.shopping_cart.filter(recipe=recipe).exists()
 
 
 class RecipeWriteSerializer(ModelSerializer):
