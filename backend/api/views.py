@@ -18,8 +18,8 @@ from api.serializers import (CustomUserSerializer, IngredientSerializer,
                              RecipeReadSerializer, RecipeShortSerializer,
                              RecipeWriteSerializer, SubscribeSerializer,
                              TagSerializer)
-from core.models import (Favorite, Ingredient, IngredientInRecipe, Recipe,
-                         ShoppingCart, Tag)
+from recipes.models import (Favorite, Ingredient, IngredientInRecipe, Recipe,
+                            ShoppingCart, Tag)
 from users.models import Subscribe
 
 User = get_user_model()
