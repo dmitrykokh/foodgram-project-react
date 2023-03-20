@@ -47,9 +47,9 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 - Скопируйте файлы docker-compose.yml и nginx.conf из директории ../infra/, а также папку docs из головной директории на удаленный сервер:
 ```sh
-sudo scp docker-compose.yml <username>@<host>:/home/<username>/docker-compose.yml
-sudo scp nginx.conf <username>@<host>:/home/<username>/nginx.conf
-sudo scp .env <username>@<host>:/home/<username>/.env
+scp docker-compose.yml <username>@<host>:/home/<username>/docker-compose.yml
+scp nginx.conf <username>@<host>:/home/<username>/nginx.conf
+scp .env <username>@<host>:/home/<username>/.env
 scp -r docs <username>@<host>:/home/<username>/docs
 ```
 - Создайте переменные окружения (указаны в файле ../infra/env.example) и добавьте их в Secrets GitHub Actions
