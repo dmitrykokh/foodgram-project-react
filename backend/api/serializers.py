@@ -62,6 +62,7 @@ class CustomUserSerializer(UserSerializer):
                 user.is_authenticated and Subscribe.objects.filter(user=user, author=author).exists()
         )
 
+
 class SubscribeSerializer(CustomUserSerializer):
     recipes_count = SerializerMethodField()
     recipes = SerializerMethodField()
