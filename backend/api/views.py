@@ -152,7 +152,7 @@ class RecipeViewSet(ModelViewSet):
     def download_shopping_cart(self, request):
         """Метод для скачивания списка покупок."""
         ingredients = IngredientInRecipe.objects.filter(
-            recipe__shopping_cart__user=request.user
+            recipes__shopping_cart__user=request.user
         ).values(
             'ingredient__name',
             'ingredient__measurement_unit'
