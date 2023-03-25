@@ -140,7 +140,6 @@ class RecipeReadSerializer(ModelSerializer):
     class Meta:
         model = Recipe
         fields = (
-            'id',
             'tags',
             'author',
             'ingredients',
