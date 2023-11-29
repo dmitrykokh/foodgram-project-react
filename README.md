@@ -1,5 +1,6 @@
 ### Проект Foodgram
 Мой дипломный проект — сайт Foodgram, «Продуктовый помощник». Онлайн-сервис и API для него.
+
 **Foodgram** - продуктовый помощник.
 
 [![Django-app workflow](https://github.com/dmitrykokh/foodgram-project-react/actions/workflows/main.yml/badge.svg)](https://github.com/dmitrykokh/foodgram-project-react/actions/workflows/main.yml)
